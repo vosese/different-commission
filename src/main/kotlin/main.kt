@@ -1,15 +1,16 @@
-import kotlin.math.max
-
 fun main() {
-    println(commission("VkPay", 750, 0))
-    println(commission("VkPay", 30000, 0))
-    println(commission("VkPay", 800000, 0))
-}
-
-fun commission(typeCard: String, amount: Int, history: Int): Int {
-    return when (typeCard) {
-        "VkPay" -> if (amount + history > 150000) -1 else max(35, (amount * 0.03).toInt())
-        else -> -2
+    fun comission(typeCard: String = "VK Pay", history: Int = 0, amount: Int): Any {
+        return when (typeCard) {
+            "VK Pay" -> 0
+            "MasterCard" -> if (amount + history < 75_000) 0 else (amount * 0.006 + 20)
+            "Maestro" -> if (amount + history < 75_000) 0 else (amount * 0.006 + 20)
+            "Visa" -> if (amount >= 4666.666666667) (amount * 0.0075).toFloat() else 35
+            "Мир" -> if (amount >= 4666.666666667) (amount * 0.0075).toFloat() else 35
+            else -> "Error"
+        }
     }
-}
 
+    val result = comission(amount = 355000)
+    println("Комиссия: $result")
+
+}
